@@ -25,7 +25,7 @@ layer {
     phase: TEST
   }
   transform_param {
-    mean_file: "examples/cifar10/mean.binaryproto"
+    mean_file: "examples/cifar10/snsd_mean.binaryproto"
   }
   data_param {
     source: "examples/cifar10/snsd_cifar10_test_leveldb"
