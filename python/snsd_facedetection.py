@@ -8,6 +8,15 @@ import numpy as np
 
 cascade = cv2.CascadeClassifier("/usr/local/share/OpenCV/haarcascades/haarcascade_frontalface_alt.xml")
 
+
+class NameRGB:
+    def __init__(self,name,B,G,R):
+        self.name = name
+        self.B = B
+        self.G = G
+        self.R = R
+
+
 def input_arg(argvs, argc):
     if (argc != 3):   # 引数が足りない場合は、その旨を表示
         print 'Usage: # python %s Input_filename Output_filename' % argvs[0]
@@ -20,6 +29,18 @@ def input_arg(argvs, argc):
 
 
 def detect(frame):
+    # メンバーの名前と矩形の色定義
+    MemberList = []
+    MemberList.append(NameRGB("Hyoyeon",117, 163, 27))
+    MemberList.append(NameRGB("Jessica",253, 169, 27))
+    MemberList.append(NameRGB("Seohyun",178, 25, 79))
+    MemberList.append(NameRGB("Sooyoung",253, 217, 25))
+    MemberList.append(NameRGB("Suuny",253, 26, 182))
+    MemberList.append(NameRGB("Taeyeon",27, 58, 254))
+    MemberList.append(NameRGB("Tiffany",195, 155, 244))
+    MemberList.append(NameRGB("Yoona",26, 251, 253))
+    MemberList.append(NameRGB("Yuri",27, 26, 253))
+
     #顔の認識
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     gray = cv2.equalizeHist(gray)
@@ -27,43 +48,19 @@ def detect(frame):
     faces = cascade.detectMultiScale(gray,
                                      scaleFactor = 1.1,
                                      minNeighbors = 1,
-                                     minSize = (150,150))
+                                     minSize = (200,200))
     for (x, y, w, h) in faces:
         image = frame[y:y+h, x:x+w]
         cv2.imwrite("face.png", image)
         image = caffe.io.load_image('face.png')
         predictions = classifier.predict([image], oversample=False)
         pred = np.argmax(predictions)
-        if pred == 0:
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 150, 79), 2)
-            cv2.putText(frame,"ETC",(x, y), cv2.FONT_HERSHEY_SIMPLEX, 2,(255, 150, 79),2)
-        if pred == 1:
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (190, 165, 245), 2)
-            cv2.putText(frame,"Hyoyeon",(x, y), cv2.FONT_HERSHEY_SIMPLEX, 2,(190, 165, 245),2)
-        if pred == 2:
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (147, 88, 120), 2)
-            cv2.putText(frame,"Jessica",(x, y), cv2.FONT_HERSHEY_SIMPLEX, 2,(147, 88, 120),2)
-        if pred == 3:
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (111, 180, 141), 2)
-            cv2.putText(frame,"Seohyun",(x, y), cv2.FONT_HERSHEY_SIMPLEX, 2,(111, 180, 141),2)
-        if pred == 4:
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (161, 215, 244), 2)
-            cv2.putText(frame,"Sooyoung",(x, y), cv2.FONT_HERSHEY_SIMPLEX, 2,(161, 215, 244),2)
-        if pred == 5:
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 83, 191), 2)
-            cv2.putText(frame,"Suuny",(x, y), cv2.FONT_HERSHEY_SIMPLEX, 2,(255, 83, 191),2)
-        if pred == 6:
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (56, 215, 244), 2)
-            cv2.putText(frame,"Taeyeon",(x, y), cv2.FONT_HERSHEY_SIMPLEX, 2,(56, 215, 244),2)
-        if pred == 7:
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (111, 255, 141), 2)
-            cv2.putText(frame,"Tiffany",(x, y), cv2.FONT_HERSHEY_SIMPLEX, 2,(111, 255, 141),2)
-        if pred == 8:
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (80, 87, 244), 2)
-            cv2.putText(frame,"Yoona",(x, y), cv2.FONT_HERSHEY_SIMPLEX, 2,(80, 87, 244),2)
-        if pred == 9:
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (111, 255, 255), 2)
-            cv2.putText(frame,"Yuri",(x, y), cv2.FONT_HERSHEY_SIMPLEX, 2,(111, 255, 255),2)
+
+        for i, value in enumerate(MemberList):
+            if pred == i+1:
+                cv2.rectangle(frame, (x, y), (x + w, y + h), (value.B, value.G, value.R), 2)
+                cv2.putText(frame,value.name,(x, y), cv2.FONT_HERSHEY_SIMPLEX, 2,(value.B, value.G, value.R),2)
+
     return frame
 
 
