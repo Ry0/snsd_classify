@@ -11,3 +11,4 @@ cifar10_*.prototxt
 *.caffemodel
 *.solverstate
 *.binaryproto
+*.DS_Store
