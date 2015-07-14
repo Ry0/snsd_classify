@@ -1,0 +1,9 @@
+## .gitignore ##
+# ignore all
+*
+*/
+
+# allow any
+!snsd*.py
+!*.gitignore
+!snsd*.prototxt
