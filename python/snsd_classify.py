@@ -21,7 +21,7 @@ if __name__ == "__main__":
     image_src = image_path[1]
 
     mean_blob = caffe_pb2.BlobProto()
-    with open('snsd_mean.binaryproto') as f:
+    with open('../snsd_mean.binaryproto') as f:
     	mean_blob.ParseFromString(f.read())
     mean_array = np.asarray(
     mean_blob.data,
@@ -30,8 +30,8 @@ if __name__ == "__main__":
         mean_blob.height,
         mean_blob.width))
     classifier = caffe.Classifier(
-        'snsd_cifar10_quick.prototxt',
-        'snsd_cifar10_quick_iter_4000.caffemodel',
+        '../snsd_cifar10_quick.prototxt',
+        '../snsd_cifar10_quick_iter_4000.caffemodel',
         mean=mean_array,
         raw_scale=255)
 

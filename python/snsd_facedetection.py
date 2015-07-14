@@ -10,7 +10,7 @@ cascade = cv2.CascadeClassifier("/usr/local/share/OpenCV/haarcascades/haarcascad
 
 def input_arg(argvs, argc):
     if (argc != 3):   # 引数が足りない場合は、その旨を表示
-        print 'Usage: # python %s srcdirectory outputdirectory' % argvs[0]
+        print 'Usage: # python %s Input_filename Output_filename' % argvs[0]
         quit()        # プログラムの終了
 
     print 'Input filename = %s' % argvs[1]
@@ -75,7 +75,7 @@ if __name__ == "__main__":
     in_image = cv2.imread(filepath[1])
     out_image = filepath[2]
     mean_blob = caffe_pb2.BlobProto()
-    with open('snsd_mean.binaryproto') as f:
+    with open('../snsd_mean.binaryproto') as f:
         mean_blob.ParseFromString(f.read())
     mean_array = np.asarray(
     mean_blob.data,
@@ -84,20 +84,11 @@ if __name__ == "__main__":
         mean_blob.height,
         mean_blob.width))
     classifier = caffe.Classifier(
-        'snsd_cifar10_quick.prototxt',
-        'snsd_cifar10_quick_iter_4000.caffemodel',
+        '../snsd_cifar10_quick.prototxt',
+        '../snsd_cifar10_quick_iter_4000.caffemodel',
         mean=mean_array,
         raw_scale=255)
 
     frame = detect(in_image)
     cv2.imwrite(out_image, frame)
-    # while(cap.isOpened()):
-    #     ret, frame = cap.read()
-    #     if ret == True:
-    #         frame = detect(frame)
-    #         out.write(frame)
-    #     else:
-    #         break
-    # cap.release()
-    # out.release()
-    # cv2.destroyAllWindows()
+    os.remove("face.png")
