@@ -7,3 +7,4 @@
 !snsd*.py
 !*.gitignore
 !snsd*.prototxt
+!README_snsd.md
