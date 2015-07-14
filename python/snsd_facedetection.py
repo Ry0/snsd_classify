@@ -7,8 +7,6 @@ from caffe.proto import caffe_pb2
 import numpy as np
 
 cascade = cv2.CascadeClassifier("/usr/local/share/OpenCV/haarcascades/haarcascade_frontalface_alt.xml")
-
-
 class NameRGB:
     def __init__(self,name,B,G,R):
         self.name = name
@@ -48,7 +46,7 @@ def detect(frame):
     faces = cascade.detectMultiScale(gray,
                                      scaleFactor = 1.1,
                                      minNeighbors = 1,
-                                     minSize = (200,200))
+                                     minSize = (100,100))
     for (x, y, w, h) in faces:
         image = frame[y:y+h, x:x+w]
         cv2.imwrite("face.png", image)
@@ -58,9 +56,11 @@ def detect(frame):
 
         for i, value in enumerate(MemberList):
             if pred == i+1:
+                probability = int(predictions[0][int(i+1)]*100)
+                probability = str(probability) + "%"
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (value.B, value.G, value.R), 2)
-                cv2.putText(frame,value.name,(x, y), cv2.FONT_HERSHEY_SIMPLEX, 2,(value.B, value.G, value.R),2)
-
+                cv2.putText(frame,value.name,(x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 2,(value.B, value.G, value.R),2)
+                cv2.putText(frame,probability,(x + w - 120, y + h + 50), cv2.FONT_HERSHEY_SIMPLEX, 2,(value.B, value.G, value.R),2)
     return frame
 
 
