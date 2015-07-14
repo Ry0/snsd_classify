@@ -75,7 +75,7 @@ if __name__ == "__main__":
     in_image = cv2.imread(filepath[1])
     out_image = filepath[2]
     mean_blob = caffe_pb2.BlobProto()
-    with open('mean.binaryproto') as f:
+    with open('snsd_mean.binaryproto') as f:
         mean_blob.ParseFromString(f.read())
     mean_array = np.asarray(
     mean_blob.data,
