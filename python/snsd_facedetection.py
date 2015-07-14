@@ -56,11 +56,13 @@ def detect(frame):
 
         for i, value in enumerate(MemberList):
             if pred == i+1:
+                # 確率を代入，文字列変換
                 probability = int(predictions[0][int(i+1)]*100)
                 probability = str(probability) + "%"
+                # 矩形設置
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (value.B, value.G, value.R), 2)
-                cv2.putText(frame,value.name,(x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 2,(value.B, value.G, value.R),2)
-                cv2.putText(frame,probability,(x + w - 120, y + h + 50), cv2.FONT_HERSHEY_SIMPLEX, 2,(value.B, value.G, value.R),2)
+                cv2.putText(frame,value.name,(x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 2,(value.B, value.G, value.R),2,cv2.CV_AA)
+                cv2.putText(frame,probability,(x + w - 120, y + h + 50), cv2.FONT_HERSHEY_SIMPLEX, 2,(value.B, value.G, value.R),2,cv2.CV_AA)
     return frame
 
 

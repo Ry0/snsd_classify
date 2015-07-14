@@ -44,5 +44,5 @@ if __name__ == "__main__":
     print name[pred]
     print
     for i,data in enumerate(name):
-	print "class" + str(i+1) + " name：" + data
-	print predictions[0][int(i)]*100
+    print "class" + str(i+1) + " name：" + data
+    print predictions[0][int(i)]*100
