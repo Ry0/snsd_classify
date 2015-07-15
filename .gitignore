@@ -10,6 +10,11 @@ snsd_data
 cifar10_*.prototxt
 *.caffemodel
 *.solverstate
+!snsd_cifar10_full_150715_iter_60000.caffemodel
+!snsd_cifar10_full_150715_iter_60000.solverstate
 *.binaryproto
 *.DS_Store
 README_CAFFE.md
+/python/*.jpg
+/python/*.jpeg
+/python/*.png
