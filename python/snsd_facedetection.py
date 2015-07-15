@@ -90,4 +90,5 @@ if __name__ == "__main__":
 
     frame = detect(in_image)
     cv2.imwrite(out_image, frame)
-    os.remove("face.png")
+    if os.path.isfile("face.png"):
+        os.remove("face.png")
