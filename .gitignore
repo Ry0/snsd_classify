@@ -12,3 +12,4 @@ cifar10_*.prototxt
 *.solverstate
 *.binaryproto
 *.DS_Store
+README_CAFFE.md
