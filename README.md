@@ -27,7 +27,7 @@ python snsd_facedetection.py src.jpg output.jpg
 ```
 
 ###実行結果
-![yoona_sooyoung.jpg](python/yoona_sooyoung.jpg)
+![yoona_sooyoung.jpg](success_img/yoona_sooyoung.jpg)
 
 
 

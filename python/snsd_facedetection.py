@@ -7,6 +7,8 @@ from caffe.proto import caffe_pb2
 import numpy as np
 
 cascade = cv2.CascadeClassifier("/usr/local/share/OpenCV/haarcascades/haarcascade_frontalface_alt.xml")
+
+
 class NameRGB:
     def __init__(self,name,B,G,R):
         self.name = name
@@ -16,9 +18,12 @@ class NameRGB:
 
 
 def input_arg(argvs, argc):
-    if (argc != 3):   # 引数が足りない場合は、その旨を表示
+    if (argc < 2 or 3 < argc):   # 引数が足りない場合は、その旨を表示
         print 'Usage: # python %s Input_filename Output_filename' % argvs[0]
         quit()        # プログラムの終了
+    elif (argc == 2):
+        # argvs[2] = "out.jpg"
+        argvs.append("out.jpg")
 
     print 'Input filename = %s' % argvs[1]
     print 'Output filename = %s' % argvs[2]
@@ -29,6 +34,7 @@ def input_arg(argvs, argc):
 def detect(frame):
     # メンバーの名前と矩形の色定義
     MemberList = []
+    MemberList.append(NameRGB("ETC",117, 163, 27))
     MemberList.append(NameRGB("Hyoyeon",117, 163, 27))
     MemberList.append(NameRGB("Jessica",253, 169, 27))
     MemberList.append(NameRGB("Seohyun",178, 25, 79))
@@ -46,23 +52,30 @@ def detect(frame):
     faces = cascade.detectMultiScale(gray,
                                      scaleFactor = 1.1,
                                      minNeighbors = 1,
-                                     minSize = (100,100))
+                                     minSize = (75,75))
     for (x, y, w, h) in faces:
         image = frame[y:y+h, x:x+w]
         cv2.imwrite("face.png", image)
         image = caffe.io.load_image('face.png')
         predictions = classifier.predict([image], oversample=False)
         pred = np.argmax(predictions)
+        sorted_prediction_ind = sorted(range(len(predictions[0])),key=lambda x:predictions[0][x],reverse=True)
+        first = MemberList[sorted_prediction_ind[0]].name + " " + str(int(predictions[0,sorted_prediction_ind[0]]*100)) + "%"
+        second = MemberList[sorted_prediction_ind[1]].name + " " + str(int(predictions[0,sorted_prediction_ind[1]]*100)) + "%"
+        third = MemberList[sorted_prediction_ind[2]].name + " " + str(int(predictions[0,sorted_prediction_ind[2]]*100)) + "%"
 
         for i, value in enumerate(MemberList):
-            if pred == i+1:
+            if pred == 0:
+                print "Skip ETC!"
+            elif pred == i:
                 # 確率を代入，文字列変換
-                probability = int(predictions[0][int(i+1)]*100)
-                probability = str(probability) + "%"
+                # probability = int(predictions[0][int(i)]*100)
+                # probability = value.name + " " + str(probability) + "%"
                 # 矩形設置
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (value.B, value.G, value.R), 2)
-                cv2.putText(frame,value.name,(x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 2,(value.B, value.G, value.R),2,cv2.CV_AA)
-                cv2.putText(frame,probability,(x + w - 120, y + h + 50), cv2.FONT_HERSHEY_SIMPLEX, 2,(value.B, value.G, value.R),2,cv2.CV_AA)
+                cv2.putText(frame,first,(x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 2,(value.B, value.G, value.R),2,cv2.CV_AA)
+                cv2.putText(frame,second,(x, y + h + 30), cv2.FONT_HERSHEY_SIMPLEX, 1,(value.B, value.G, value.R),2,cv2.CV_AA)
+                cv2.putText(frame,third,(x, y + h + 70), cv2.FONT_HERSHEY_SIMPLEX, 1,(value.B, value.G, value.R),2,cv2.CV_AA)
     return frame
 
 
@@ -83,8 +96,8 @@ if __name__ == "__main__":
         mean_blob.height,
         mean_blob.width))
     classifier = caffe.Classifier(
-        '../snsd_cifar10_quick.prototxt',
-        '../snsd_cifar10_quick_150715_iter_4000.caffemodel',
+        '../snsd_cifar10_full.prototxt',
+        '../snsd_cifar10_full_150715_iter_60000.caffemodel',
         mean=mean_array,
         raw_scale=255)
 
