@@ -20,6 +20,6 @@ display: 100
 max_iter: 4000
 # snapshot intermediate results
 snapshot: 4000
-snapshot_prefix: "examples/cifar10/snsd_cifar10_quick"
+snapshot_prefix: "examples/cifar10/snsd_cifar10_quick_150715"
 # solver mode: CPU or GPU
 solver_mode: CPU
