@@ -22,7 +22,6 @@ def input_arg(argvs, argc):
         print 'Usage: # python %s Input_filename Output_filename' % argvs[0]
         quit()        # プログラムの終了
     elif (argc == 2):
-        # argvs[2] = "out.jpg"
         argvs.append("out.jpg")
 
     print 'Input filename = %s' % argvs[1]
@@ -68,9 +67,6 @@ def detect(frame):
             if pred == 0:
                 print "Skip ETC!"
             elif pred == i:
-                # 確率を代入，文字列変換
-                # probability = int(predictions[0][int(i)]*100)
-                # probability = value.name + " " + str(probability) + "%"
                 # 矩形設置
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (value.B, value.G, value.R), 2)
                 cv2.putText(frame,first,(x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 2,(value.B, value.G, value.R),2,cv2.CV_AA)
@@ -96,8 +92,8 @@ if __name__ == "__main__":
         mean_blob.height,
         mean_blob.width))
     classifier = caffe.Classifier(
-        '../snsd_cifar10_full.prototxt',
-        '../snsd_cifar10_full_150715_iter_60000.caffemodel',
+        '../snsd_cifar10_quick.prototxt',
+        '../snsd_cifar10_quick_150717_iter_4000.caffemodel',
         mean=mean_array,
         raw_scale=255)
 
