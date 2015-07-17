@@ -5,6 +5,7 @@ import os.path
 import caffe
 from caffe.proto import caffe_pb2
 import numpy as np
+from datetime import datetime
 
 cascade = cv2.CascadeClassifier("/usr/local/share/OpenCV/haarcascades/haarcascade_frontalface_alt.xml")
 
@@ -22,7 +23,9 @@ def input_arg(argvs, argc):
         print 'Usage: # python %s Input_filename Output_filename' % argvs[0]
         quit()        # プログラムの終了
     elif (argc == 2):
-        argvs.append("out.jpg")
+        d = datetime.now()
+        filename = "img-" + d.strftime('%Y') + "-" + d.strftime('%m') + "-" + d.strftime('%d') + "-" + d.strftime('%H') + "h-" + d.strftime('%M') + "m" + d.strftime('%S')  + "s.jpg"
+        argvs.append(filename)
 
     print 'Input filename = %s' % argvs[1]
     print 'Output filename = %s' % argvs[2]
@@ -55,6 +58,7 @@ def detect(frame):
     for (x, y, w, h) in faces:
         image = frame[y:y+h, x:x+w]
         cv2.imwrite("face.png", image)
+        os.system("convert face.png -equalize face.png")
         image = caffe.io.load_image('face.png')
         predictions = classifier.predict([image], oversample=False)
         pred = np.argmax(predictions)
@@ -72,6 +76,8 @@ def detect(frame):
                 cv2.putText(frame,first,(x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 2,(value.B, value.G, value.R),2,cv2.CV_AA)
                 cv2.putText(frame,second,(x, y + h + 30), cv2.FONT_HERSHEY_SIMPLEX, 1,(value.B, value.G, value.R),2,cv2.CV_AA)
                 cv2.putText(frame,third,(x, y + h + 70), cv2.FONT_HERSHEY_SIMPLEX, 1,(value.B, value.G, value.R),2,cv2.CV_AA)
+    if os.path.isfile("face.png"):
+        os.remove("face.png")
     return frame
 
 
@@ -93,11 +99,18 @@ if __name__ == "__main__":
         mean_blob.width))
     classifier = caffe.Classifier(
         '../snsd_cifar10_quick.prototxt',
-        '../snsd_cifar10_quick_150717_iter_4000.caffemodel',
+        '../snsd_cifar10_quick_150718_iter_10000.caffemodel',
         mean=mean_array,
         raw_scale=255)
 
     frame = detect(in_image)
-    cv2.imwrite(out_image, frame)
-    if os.path.isfile("face.png"):
-        os.remove("face.png")
+
+    cv2.imshow("Show Image",frame)
+    # キー入力待機
+    key = cv2.waitKey(0)
+    # ウィンドウ破棄
+    cv2.destroyAllWindows()
+
+    if key == 1048691:
+        cv2.imwrite(out_image, frame)
+        print "Save image -> " + out_image
