@@ -9,7 +9,7 @@ layer {
   }
   transform_param {
     mean_file: "examples/cifar10/snsd_mean.binaryproto"
-    crop_size: 28
+    crop_size: 60
     mirror: true
   }
   data_param {
@@ -28,7 +28,7 @@ layer {
   }
   transform_param {
     mean_file: "examples/cifar10/snsd_mean.binaryproto"
-    crop_size: 28
+    crop_size: 60
   }
   data_param {
     source: "examples/cifar10/snsd_cifar10_test_leveldb"
@@ -48,7 +48,7 @@ layer {
     lr_mult: 2
   }
   convolution_param {
-    num_output: 32
+    num_output: 60
     pad: 2
     kernel_size: 5
     stride: 1
