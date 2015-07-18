@@ -33,6 +33,16 @@ def input_arg(argvs, argc):
     return argvs
 
 
+def create_directory(output_directory, out_image_filename):
+    if os.path.isdir(output_directory) == 0:
+        print "Not exist \"%s\" folder. So create it." % output_directory
+        os.makedirs(output_directory)
+    else:
+        print "Exist \"%s\" folder." % output_directory
+    out_image = output_directory + "/" + out_image_filename
+    return out_image
+
+
 def detect(frame):
     # メンバーの名前と矩形の色定義
     MemberList = []
@@ -112,5 +122,7 @@ if __name__ == "__main__":
     cv2.destroyAllWindows()
 
     if key == 1048691:
+        #保存先ディレクトリと保存名を指定
+        out_image = create_directory("../success_img", out_image)
         cv2.imwrite(out_image, frame)
         print "Save image -> " + out_image
