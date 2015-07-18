@@ -9,6 +9,8 @@ layer {
   }
   transform_param {
     mean_file: "examples/cifar10/snsd_mean.binaryproto"
+    crop_size: 60
+    mirror: true
   }
   data_param {
     source: "examples/cifar10/snsd_cifar10_train_leveldb"
@@ -26,6 +28,7 @@ layer {
   }
   transform_param {
     mean_file: "examples/cifar10/snsd_mean.binaryproto"
+    crop_size: 60
   }
   data_param {
     source: "examples/cifar10/snsd_cifar10_test_leveldb"
@@ -45,7 +48,7 @@ layer {
     lr_mult: 2
   }
   convolution_param {
-    num_output: 64
+    num_output: 60
     pad: 2
     kernel_size: 5
     stride: 1
@@ -184,6 +187,37 @@ layer {
   top: "ip1"
   param {
     lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  inner_product_param {
+    num_output: 64
+    weight_filler {
+      type: "gaussian"
+      std: 0.1
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "drop1"
+  type: "Dropout"
+  bottom: "ip1"
+  top: "drop1"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "ip2"
+  type: "InnerProduct"
+  bottom: "drop1"
+  top: "ip2"
+  param {
+    lr_mult: 1
     decay_mult: 250
   }
   param {
@@ -204,14 +238,14 @@ layer {
 layer {
   name: "accuracy"
   type: "Accuracy"
-  bottom: "ip1"
+  bottom: "ip2"
   bottom: "label"
   top: "accuracy"
 }
 layer {
   name: "loss"
   type: "SoftmaxWithLoss"
-  bottom: "ip1"
+  bottom: "ip2"
   bottom: "label"
   top: "loss"
 }
