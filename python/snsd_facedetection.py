@@ -41,7 +41,7 @@ def detect(frame):
     MemberList.append(NameRGB("Jessica",253, 169, 27))
     MemberList.append(NameRGB("Seohyun",178, 25, 79))
     MemberList.append(NameRGB("Sooyoung",253, 217, 25))
-    MemberList.append(NameRGB("Suuny",253, 26, 182))
+    MemberList.append(NameRGB("Sunny",253, 26, 182))
     MemberList.append(NameRGB("Taeyeon",27, 58, 254))
     MemberList.append(NameRGB("Tiffany",195, 155, 244))
     MemberList.append(NameRGB("Yoona",26, 251, 253))
@@ -64,8 +64,8 @@ def detect(frame):
         pred = np.argmax(predictions)
         sorted_prediction_ind = sorted(range(len(predictions[0])),key=lambda x:predictions[0][x],reverse=True)
         first = MemberList[sorted_prediction_ind[0]].name + " " + str(int(predictions[0,sorted_prediction_ind[0]]*100)) + "%"
-        second = MemberList[sorted_prediction_ind[1]].name + " " + str(int(predictions[0,sorted_prediction_ind[1]]*100)) + "%"
-        third = MemberList[sorted_prediction_ind[2]].name + " " + str(int(predictions[0,sorted_prediction_ind[2]]*100)) + "%"
+        second = MemberList[sorted_prediction_ind[1]].name + " " + str(round(predictions[0,sorted_prediction_ind[1]]*100,1)) + "%"
+        third = MemberList[sorted_prediction_ind[2]].name + " " + str(round(predictions[0,sorted_prediction_ind[2]]*100,1)) + "%"
 
         for i, value in enumerate(MemberList):
             if pred == 0:
@@ -99,7 +99,7 @@ if __name__ == "__main__":
         mean_blob.width))
     classifier = caffe.Classifier(
         '../snsd_cifar10_quick.prototxt',
-        '../snsd_cifar10_quick_150718_iter_10000.caffemodel',
+        '../snsd_cifar10_full_150717_iter_60000.caffemodel',
         mean=mean_array,
         raw_scale=255)
 
