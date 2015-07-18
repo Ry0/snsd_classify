@@ -26,6 +26,12 @@ python snsd_classify.py src.jpg
 cd python
 python snsd_facedetection.py src.jpg output.jpg
 ```
+または
+```bash
+cd python
+python snsd_facedetection.py src.jpg
+```
+出力先を指定しない場合は保存した時間を名前にして勝手に`success_img`というディレクトリにぶち込まれます．
 
 実行すると「Show Image」と書かれたウィンドウが出現し，結果が可視化される．  
 この結果を保存したかったらウィンドウ上で`s`キーを押す．保存したくなかったら`s`以外のキーを押すとプログラムが終了．
