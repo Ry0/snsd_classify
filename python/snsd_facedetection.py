@@ -24,7 +24,7 @@ def input_arg(argvs, argc):
         quit()        # プログラムの終了
     elif (argc == 2):
         d = datetime.now()
-        filename = "img-" + d.strftime('%Y') + "-" + d.strftime('%m') + "-" + d.strftime('%d') + "-" + d.strftime('%H') + "h-" + d.strftime('%M') + "m" + d.strftime('%S')  + "s.jpg"
+        filename = "img-" + d.strftime('%Y') + "-" + d.strftime('%m') + "-" + d.strftime('%d') + "-" + d.strftime('%H') + "h" + d.strftime('%M') + "m" + d.strftime('%S')  + "s.jpg"
         argvs.append(filename)
 
     print 'Input filename = %s' % argvs[1]
