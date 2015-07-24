@@ -1,7 +1,5 @@
 cifar10_test_lmdb
 cifar10_train_lmdb
-HandwritingRecognition
-tegaki_*
 *_leveldb
 *.sh
 convert_cifar_data.cpp
@@ -13,7 +11,6 @@ cifar10_*.prototxt
 *.solverstate
 !snsd_cifar10_full_150717_iter_60000.caffemodel
 !snsd_cifar10_full_150717_iter_60000.solverstate
-.binaryproto
 *.DS_Store
 README_CAFFE.md
 /python/*.jpg
