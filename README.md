@@ -58,29 +58,6 @@ Cifar10のモデルをそのまま使ったら，過学習が起きたので，�
 
 ![dropout.png](plot/dropout/dropout.png)
 
+##動画
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<iframe width="560" height="315" src="https://www.youtube.com/embed/HQzu7NYlZNQ" frameborder="0" allowfullscreen></iframe>
