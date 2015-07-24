@@ -1,7 +1,8 @@
 cifar10_test_lmdb
 cifar10_train_lmdb
-snsd_cifar10_test_leveldb
-snsd_cifar10_train_leveldb
+HandwritingRecognition
+tegaki_*
+*_leveldb
 *.sh
 convert_cifar_data.cpp
 cat_data
