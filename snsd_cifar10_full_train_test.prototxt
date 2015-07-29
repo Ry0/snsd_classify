@@ -8,12 +8,12 @@ layer {
     phase: TRAIN
   }
   transform_param {
-    mean_file: "examples/cifar10/snsd_mean.binaryproto"
+    mean_file: "examples/snsd_classify/snsd_mean.binaryproto"
     crop_size: 60
     mirror: true
   }
   data_param {
-    source: "examples/cifar10/snsd_cifar10_train_leveldb"
+    source: "examples/snsd_classify/snsd_cifar10_train_leveldb"
     batch_size: 100
     backend: LEVELDB
   }
@@ -27,11 +27,11 @@ layer {
     phase: TEST
   }
   transform_param {
-    mean_file: "examples/cifar10/snsd_mean.binaryproto"
+    mean_file: "examples/snsd_classify/snsd_mean.binaryproto"
     crop_size: 60
   }
   data_param {
-    source: "examples/cifar10/snsd_cifar10_test_leveldb"
+    source: "examples/snsd_classify/snsd_cifar10_test_leveldb"
     batch_size: 100
     backend: LEVELDB
   }

@@ -23,4 +23,4 @@ max_iter: 60000
 snapshot: 10000
 snapshot_prefix: "examples/snsd_classify/snsd_cifar10_full"
 # solver mode: CPU or GPU
-solver_mode: GPU
+solver_mode: CPU
