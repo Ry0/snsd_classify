@@ -1,8 +1,46 @@
 #Caffeを使って少女時代の顔を識別するためのプログラム
 * Cifar10で少女時代のメンバーを学習。  
-* このプログラムは`caffe/examples/cifar10/`上で動作させることを想定
+* このプログラムは`caffe/examples/`上に`clone`してください．
+```bash
+cd caffe/examples/
+git clone https://github.com/Ry0/snsd_classify.git
+```
+
 * 学習器の設定はこのレポジトリにある`snsd_cifar10_full.prototxt`、Caffeモデルは`snsd_cifar10_full_150717_iter_60000.caffemodel`を指定
 * 平均画像ファイルは`snsd_mean.binaryproto`
+
+##少女時代の顔を学習
+少女時代の顔を切り出すプログラムによって大量のデータセットを作ってください．
+このプログラムはここにあります．  
+[https://github.com/Ry0/facedetection](https://github.com/Ry0/facedetection)  
+[ここ](http://kivantium.hateblo.jp/entry/2015/02/20/214909)の「LevelDBデータセットの準備」の項を参照して，LevelDBを作成します．
+ファイルはレポジトリ内の`snsd_data`に以下のようなフォルダ内容で作成．  
+`snsd_data`の`build_leveldb.py`の45行目は自分のcaffeをおいているディレクトリを指定してください．
+
+|メンバー名|フォルダ名|
+|:--:|:--:|
+|etc|0|
+|ヒョヨン|1|
+|ジェシカ|2|
+|ソヒョン|3|
+|スヨン|4|
+|ソニ|5|
+|テヨン|6|
+|ティパニ|7|
+|ユナ|8|
+|ユリ|9|
+
+```bash
+cd snsd_data
+python build_leveldb.py
+```
+
+`snsd_cifar10_test_leveldb`と`snsd_cifar10_train_leveldb`が`snsd_classify`のディレクリにできていることを確認した後，以下のコマンドを実行．
+ただし実行する前に環境に応じて`snsd_cifar10_full_solver.prototxt`の最後の行をCPUかGPUを変更してください．
+
+```bash
+./train_full.sh
+```
 
 ##snsd_classify.py
 * 顔を切り取った写真を前提
