@@ -2,8 +2,8 @@ name: "CIFAR10_quick_test"
 input: "data"
 input_dim: 1
 input_dim: 3
-input_dim: 32
-input_dim: 32
+input_dim: 64
+input_dim: 64
 layer {
   name: "conv1"
   type: "Convolution"
@@ -16,7 +16,7 @@ layer {
     lr_mult: 2
   }
   convolution_param {
-    num_output: 32
+    num_output: 64
     pad: 2
     kernel_size: 5
     stride: 1

@@ -1,10 +1,6 @@
 cifar10_test_lmdb
 cifar10_train_lmdb
 *_leveldb
-*.sh
-convert_cifar_data.cpp
-cat_data
-cat_classify.py
 snsd_data
 cifar10_*.prototxt
 *.caffemodel
@@ -12,7 +8,6 @@ cifar10_*.prototxt
 !snsd_cifar10_full_150717_iter_60000.caffemodel
 !snsd_cifar10_full_150717_iter_60000.solverstate
 *.DS_Store
-README_CAFFE.md
 /python/*.jpg
 /python/*.jpeg
 /python/*.png

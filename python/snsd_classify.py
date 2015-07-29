@@ -30,8 +30,8 @@ if __name__ == "__main__":
         mean_blob.height,
         mean_blob.width))
     classifier = caffe.Classifier(
-        '../snsd_cifar10_quick.prototxt',
-        '../snsd_cifar10_quick_150714_iter_4000.caffemodel',
+        '../snsd_cifar10_full.prototxt',
+        '../snsd_cifar10_full_150717_iter_60000.caffemodel',
         mean=mean_array,
         raw_scale=255)
 
