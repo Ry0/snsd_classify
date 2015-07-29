@@ -1,7 +1,4 @@
-cifar10_test_lmdb
-cifar10_train_lmdb
 *_leveldb
-snsd_data
 cifar10_*.prototxt
 *.caffemodel
 *.solverstate
