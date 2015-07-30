@@ -1,5 +1,5 @@
 #Caffeを使って少女時代の顔を識別するためのプログラム
-* Cifar10で少女時代のメンバーを学習。  
+* Cifar10で少女時代のメンバーを学習．  
 * このプログラムは`caffe/examples/`上に`clone`してください．
 ```bash
 cd caffe/examples/
@@ -8,6 +8,7 @@ git clone https://github.com/Ry0/snsd_classify.git
 
 * 学習器の設定はこのレポジトリにある`snsd_cifar10_full.prototxt`、Caffeモデルは`snsd_cifar10_full_150717_iter_60000.caffemodel`を指定
 * 平均画像ファイルは`snsd_mean.binaryproto`
+* データセットは肖像権の関係で公開できませんが，学習モデルはこのレポジトリにおいています．したがって下のメンバー識別プログラムはデータセットを自分で用意しなくても実行できます．
 
 ##少女時代の顔を学習
 少女時代の顔を切り出すプログラムによって大量のデータセットを作ってください．
