@@ -41,8 +41,8 @@ def make_datum(thumbnail, label):
 
 
 def create_leveldb(name):
-  # 自分の環境に応じてパスを変えてください
-  path = os.path.join('/home/ry0/workspace/Python/caffe/examples/snsd_classify/', name)
+  # path = os.path.join(os.environ['HOME'], 'caffe/examples/snsd_classify', name)
+  path = os.path.join('/home/ry0/Workspace/Python/caffe/examples/snsd_classify', name) #自分の環境に合わせて変更する
   try:
     shutil.rmtree(path)
   except OSError:
