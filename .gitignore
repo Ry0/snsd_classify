@@ -8,3 +8,4 @@ cifar10_*.prototxt
 /python/*.jpg
 /python/*.jpeg
 /python/*.png
+.ipynb_checkpoints
