@@ -97,3 +97,9 @@ Cifar10のモデルをそのまま使ったら，過学習が起きたので，�
 * テストデータに関する精度も82%とノーマルのときよりも精度向上＼(^o^)／
 
 ![dropout.png](plot/dropout/dropout.png)
+
+##IPython Notebook
+これらの結果をIPython Notebookを使って出力してみました．
+中間層が見れたりします．
+
+[https://github.com/Ry0/snsd_classify/blob/dropout/ipynb/snsd.ipynb](https://github.com/Ry0/snsd_classify/blob/dropout/ipynb/snsd.ipynb)
