@@ -1,4 +1,14 @@
 #Caffeを使って少女時代の顔を識別するためのプログラム
+詳しい説明はブログにも書いているので参考にしてみてください．
+
+* http://ry0.github.io/blog/2015/08/12/ubuntu-nvidia-cuda-7.0/
+* http://ry0.github.io/blog/2015/08/15/caffe-install/
+* http://ry0.github.io/blog/2015/08/22/create-dataset/
+* http://ry0.github.io/blog/2015/09/28/caffe-deeplearning-dataset-1/
+* http://ry0.github.io/blog/2015/09/28/caffe-deeplearning-dataset-2/
+* http://ry0.github.io/blog/2015/09/30/using-summary-of-caffe/
+
+ここからは簡単にこのリポジトリの概要のみ説明します．
 * Cifar10の学習モデルをベースにして少女時代のメンバーを学習行った．  
 * このプログラムは`caffe/examples/`上に`clone`してください．
 ```bash
