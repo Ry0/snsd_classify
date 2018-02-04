@@ -1,4 +1,4 @@
-#Caffeを使って少女時代の顔を識別するためのプログラム
+# Caffeを使って少女時代の顔を識別するためのプログラム
 詳しい説明はブログにも書いているので参考にしてみてください．
 
 * http://ry0.github.io/blog/2015/08/12/ubuntu-nvidia-cuda-7.0/
@@ -21,7 +21,7 @@ git clone https://github.com/Ry0/snsd_classify.git
 * データセットは肖像権の関係で公開できませんが，すでに学習済みのモデルはこのレポジトリにおいています．
 * したがって下のメンバー識別プログラムはデータセットを自分で用意しなくても実行できます．
 
-##少女時代の顔を学習
+## 少女時代の顔を学習
 少女時代の顔を切り出すプログラムによって大量のデータセットを作ってください．
 このプログラムはここにあります．  
 [https://github.com/Ry0/facedetection](https://github.com/Ry0/facedetection)  
@@ -54,24 +54,24 @@ python build_leveldb.py
 ./train_full.sh
 ```
 
-##snsd_classify.py
+## snsd_classify.py
 * 顔を切り取った写真を前提
 * 一番もっともらしいメンバーの名前を表示
 * その他のメンバーの確率も表示
 
-###実行方法
+### 実行方法
 ```bash
 cd python
 python snsd_classify.py src.jpg
 ```
 
-##snsd_facedetection.py
+## snsd_facedetection.py
 * OpenCVで入力画像から顔検出
 * そのあと切り出した画像から、分類器にかける
 * 1番確率の高かったメンバー名を画像に書きこむ
 * 2番目，3番目の候補も下に表示
 
-###実行方法
+### 実行方法
 ```bash
 cd python
 python snsd_facedetection.py src.jpg output.jpg
@@ -86,29 +86,29 @@ python snsd_facedetection.py src.jpg
 実行すると「Show Image」と書かれたウィンドウが出現し，結果が可視化される．  
 この結果を保存したかったらウィンドウ上で`s`キーを押す．保存したくなかったら`s`以外のキーを押すとプログラムが終了．
 
-###実行結果
+### 実行結果
 この結果は**データの水増し，Dropoutあり（後述）**の手法で学習させた結果です．
 
 ![yoona_sooyoung.jpg](success_img/yoona_sooyoung.jpg)
 
-##Dropoutをいれた
+## Dropoutをいれた
 Cifar10のモデルをそのまま使ったら，過学習が起きたので，これを軽減させるために，データをランダムにクロップして学習につかったり，画像を左右反転させたり，データの水増しをした．
 あとDropoutと呼ばれるブロックを追加した．
 このモデルは[dropout](https://github.com/Ry0/snsd_classify/tree/dropout)ブランチにそれ用の`.prototxt`があります．
 
-###ノーマル
+### ノーマル
 * バリバリ過学習が起きてる．
 * テストデータに関する精度も77%程度
 
 ![overtraining.png](plot/overtraining/overtraining.png)
 
-###データの水増し，Dropoutあり
+### データの水増し，Dropoutあり
 * 過学習が抑えられている！！
 * テストデータに関する精度も82%とノーマルのときよりも精度向上＼(^o^)／
 
 ![dropout.png](plot/dropout/dropout.png)
 
-##IPython Notebook
+## IPython Notebook
 これらの結果をIPython Notebookを使って出力してみました．
 中間層が見れたりします．
 
